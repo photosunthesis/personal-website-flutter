@@ -18,6 +18,36 @@ float scanlines = 0.3;
 float rgbOffset = 0.1;
 float horizontalFuzz = 0.03;
 float verticalTear = 0.0;
+float pixelGridStrength = 0.1;
+
+// ============================================================================
+// CRT PIXEL EFFECT
+// ============================================================================
+vec3 crtPixelEffect(vec3 color, vec2 uv, vec2 resolution) {
+    vec2 gridUv = uv * resolution;
+    
+    // Calculate phosphor effect color
+    vec3 phosphorColor = color;
+    float gridX = mod(gridUv.x, 3.0);
+    
+    if (gridX < 1.0) {
+        phosphorColor.r *= 1.5; // Emphasize red
+        phosphorColor.gb *= 0.75; // Dim green and blue
+    } else if (gridX < 2.0) {
+        phosphorColor.g *= 1.5; // Emphasize green
+        phosphorColor.rb *= 0.75; // Dim red and blue
+    } else {
+        phosphorColor.b *= 1.5; // Emphasize blue
+        phosphorColor.rg *= 0.75; // Dim red and green
+    }
+    
+    // Add a subtle grid line effect
+    float gridLine = sin(gridUv.y * 3.14159) * 0.1 + 0.9;
+    vec3 finalColor = phosphorColor * gridLine;
+    
+    // Interpolate between original color and the full effect color
+    return mix(color, finalColor, pixelGridStrength);
+}
 
 // ============================================================================
 // NOISE FUNCTIONS
@@ -102,7 +132,7 @@ void main() {
     float verticalMovementEnabled = (1.0 - step(snoise(vec2(iTime * 0.2, 8.0)), 0.4)) * verticalMovement;
     float verticalJerkEffect = (1.0 - step(snoise(vec2(iTime * 1.5, 5.0)), 0.6)) * verticalTear;
     float verticalJerk2 = (1.0 - step(snoise(vec2(iTime * 5.5, 5.0)), 0.2)) * verticalJerkEffect;
-    float verticalOffset = abs(sin(iTime) * 4.0) * verticalMovementEnabled + verticalJerk * verticalJerk2 * 0.3;
+    float verticalOffset = verticalJerk2 * 0.3; // Removed the other vertical movement
     float adjustedYCoord = mod(textureCoords.y + verticalOffset, 1.0);
     
     // Calculate horizontal distortions
@@ -129,6 +159,9 @@ void main() {
     vec3 finalColor = vec3(redChannel, greenChannel, blueChannel);
     float scanlineEffect = sin(textureCoords.y * 800.0) * 0.04 * scanlines;
     finalColor -= scanlineEffect;
+    
+    // Apply CRT pixel grid effect
+    finalColor = crtPixelEffect(finalColor, textureCoords, iResolution);
     
     fragColor = vec4(finalColor, 1.0);
 }
