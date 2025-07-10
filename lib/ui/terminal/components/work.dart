@@ -3,9 +3,7 @@ import 'package:sun_envidiado_website/domain/work_experience.dart';
 import 'package:sun_envidiado_website/utils/build_context_extensions.dart';
 
 class Work extends StatelessWidget {
-  const Work(this.fontScale, {super.key});
-
-  final double fontScale;
+  const Work({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -121,10 +119,7 @@ class Work extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 1),
       child: Text(
         text,
-        style: context.textTheme.titleLarge?.copyWith(
-          fontSize: context.defaultBodyFontSize * fontScale,
-          height: 1,
-        ),
+        style: context.textTheme.titleLarge?.copyWith(height: 1),
       ),
     );
   }
@@ -134,10 +129,7 @@ class Work extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 1),
       child: Text(
         text,
-        style: context.textTheme.titleLarge?.copyWith(
-          fontSize: context.defaultBodyFontSize * fontScale,
-          height: 1,
-        ),
+        style: context.textTheme.titleLarge?.copyWith(height: 1),
       ),
     );
   }

@@ -5,20 +5,14 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sun_envidiado_website/app/app_colors.dart';
+import 'package:sun_envidiado_website/constants/screen_widths.dart';
 import 'package:sun_envidiado_website/constants/sun_ascii_sequence.dart';
 import 'package:sun_envidiado_website/utils/build_context_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web/web.dart' as web;
 
 class Fastfetch extends StatefulWidget {
-  const Fastfetch({
-    super.key,
-    required this.fontScale,
-    required this.showAsciiArt,
-  });
-
-  final double fontScale;
-  final bool showAsciiArt;
+  const Fastfetch({super.key});
 
   @override
   State<Fastfetch> createState() => _FastfetchState();
@@ -77,7 +71,7 @@ class _FastfetchState extends State<Fastfetch> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.showAsciiArt
+    return context.screenWidth >= ScreenWidths.tablet
         ? _buildWithAsciiArt(context)
         : _buildContentOnly(context);
   }
@@ -158,7 +152,6 @@ class _FastfetchState extends State<Fastfetch> {
         TextSpan(
           children: _buildInfoSpans(context, info),
           style: context.textTheme.titleLarge?.copyWith(
-            fontSize: context.defaultBodyFontSize * widget.fontScale,
             height: 1,
           ),
         ),
@@ -193,7 +186,6 @@ class _FastfetchState extends State<Fastfetch> {
           text: '$label: ',
           style: context.textTheme.titleLarge?.copyWith(
             color: AppColors.lightGray,
-            fontSize: context.defaultBodyFontSize * widget.fontScale,
             height: 1,
           ),
         ),
@@ -206,7 +198,6 @@ class _FastfetchState extends State<Fastfetch> {
           text: value,
           style: context.textTheme.titleLarge?.copyWith(
             color: color,
-            fontSize: context.defaultBodyFontSize * widget.fontScale,
             decoration: url != null ? TextDecoration.underline : null,
             decorationColor: url != null ? color : null,
             height: 1,

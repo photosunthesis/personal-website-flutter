@@ -100,28 +100,19 @@ class _TerminalScreenState extends State<TerminalScreen> {
     return SelectionArea(
       child: switch (content) {
         final TerminalText text => _buildTerminalText(text, fontScale),
-        final TerminalCommand command => _buildTerminalCommand(
-          command,
-          fontScale,
-          showAsciiArt,
-        ),
+        final TerminalCommand command => _buildTerminalCommand(command),
       },
     );
   }
 
-  Widget _buildTerminalCommand(
-    TerminalCommand command,
-    double fontScale,
-    bool showAsciiArt,
-  ) {
+  Widget _buildTerminalCommand(TerminalCommand command) {
     return switch (command.command) {
-      Commands.whoami => WhoAmI(fontScale),
-      Commands.work => Work(fontScale),
-      Commands.fastfetch => Fastfetch(
-        fontScale: fontScale,
-        showAsciiArt: showAsciiArt,
+      Commands.fastfetch => const Fastfetch(),
+      Commands.whoami => const WhoAmI(),
+      Commands.work => const Work(),
+      _ => throw UnimplementedError(
+        'Command ${command.command} is not implemented',
       ),
-      _ => const SizedBox.shrink(),
     };
   }
 
