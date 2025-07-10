@@ -285,9 +285,9 @@ class _FastfetchState extends State<Fastfetch> {
     },
     {
       'label': 'GitHub',
-      'value': '@photosynthesis',
+      'value': '@photosunthesis',
       'colorKey': 'yellow',
-      'url': 'https://github.com/photosynthesis',
+      'url': 'https://github.com/photosunthesis',
     },
     {'label': '', 'value': '', 'colorKey': ''},
     {
