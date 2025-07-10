@@ -151,9 +151,7 @@ class _FastfetchState extends State<Fastfetch> {
       child: SelectableText.rich(
         TextSpan(
           children: _buildInfoSpans(context, info),
-          style: context.textTheme.titleLarge?.copyWith(
-            height: 1,
-          ),
+          style: context.textTheme.titleLarge?.copyWith(height: 1),
         ),
       ),
     );
