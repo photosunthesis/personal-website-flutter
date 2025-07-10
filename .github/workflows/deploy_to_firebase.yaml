@@ -40,7 +40,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Web
-        run: flutter build web --release --wasm
+        run: flutter build web --release --wasm --build-number=${{ github.run_number }}
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
