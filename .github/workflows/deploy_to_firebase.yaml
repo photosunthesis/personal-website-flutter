@@ -1,0 +1,47 @@
+name: Deploy to Firebase
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  deploy:
+    name: Build and Deploy to Firebase
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.32.5 # Must be the same with the one in pubspec.yaml
+
+      - name: Configure firebase
+        run: |
+          curl -sL https://firebase.tools | bash
+          firebase experiments:enable webframeworks
+          dart pub global activate flutterfire_cli
+          flutterfire configure \
+            --project=personal-website-terminal-like \
+            --platforms=web \
+            --token=${{ secrets.FIREBASE_CI_TOKEN }} \
+            --out=lib/firebase_options.dart \
+            --yes
+
+      - name: Download dependencies
+        run: flutter pub get
+
+      - name: Build Web
+        run: flutter build web --release --wasm
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          projectId: personal-website-terminal-like
+          channelId: live
