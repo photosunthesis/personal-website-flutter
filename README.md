@@ -1,5 +1,3 @@
-# Sun Envidiado Website
-
 A Flutter web application featuring a terminal-inspired design with custom shader effects.
 
 ## Features
