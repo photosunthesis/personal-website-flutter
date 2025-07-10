@@ -23,7 +23,7 @@ class WhoAmI extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: context.defaultBodyFontSize,
+      spacing: context.scaledBodyFontSize,
       children: [
         if (context.screenWidth >= ScreenWidths.tablet) _buildTitle(context),
         // TODO Move text to database or API
@@ -61,6 +61,7 @@ class WhoAmI extends StatelessWidget {
               height: 1,
               color: AppColors.orange,
               fontWeight: FontWeight.bold,
+              fontSize: 13, // Fixed font size for ASCII art
             ),
           ),
         ),
@@ -123,6 +124,7 @@ class WhoAmI extends StatelessWidget {
     return context.textTheme.titleLarge!.copyWith(
       height: 1,
       color: AppColors.white,
+      fontSize: context.scaledBodyFontSize,
     );
   }
 
@@ -150,6 +152,7 @@ class WhoAmI extends StatelessWidget {
     return context.textTheme.titleLarge!.copyWith(
       height: 1,
       color: color,
+      fontSize: context.scaledBodyFontSize,
       fontWeight: word.toLowerCase() == 'sun'
           ? FontWeight.bold
           : FontWeight.normal,

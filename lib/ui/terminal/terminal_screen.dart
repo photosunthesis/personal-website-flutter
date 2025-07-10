@@ -37,8 +37,6 @@ class _TerminalScreenState extends State<TerminalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final fontScale = _getFontScale(context.screenWidth);
-
     return Container(
       color: context.colorScheme.surface,
       child: GestureDetector(
@@ -66,12 +64,11 @@ class _TerminalScreenState extends State<TerminalScreen> {
                         ...commands.map(
                           (content) => _buildTerminalContent(
                             content,
-                            fontScale: fontScale,
                             showAsciiArt:
                                 context.screenWidth >= ScreenWidths.tablet,
                           ),
                         ),
-                        _buildInput(fontScale),
+                        _buildInput(),
                       ],
                     ),
                   ),
@@ -84,22 +81,13 @@ class _TerminalScreenState extends State<TerminalScreen> {
     );
   }
 
-  // Helper method to determine font scale based on screen width
-  double _getFontScale(double screenWidth) => switch (screenWidth) {
-    < ScreenWidths.mobile => 0.6,
-    < ScreenWidths.tablet => 0.7,
-    < ScreenWidths.desktop => 1.0,
-    _ => 1.0,
-  };
-
   Widget _buildTerminalContent(
     TerminalContent content, {
-    required double fontScale,
     required bool showAsciiArt,
   }) {
     return SelectionArea(
       child: switch (content) {
-        final TerminalText text => _buildTerminalText(text, fontScale),
+        final TerminalText text => _buildTerminalText(text),
         final TerminalCommand command => _buildTerminalCommand(command),
       },
     );
@@ -116,7 +104,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
     };
   }
 
-  Widget _buildTerminalText(TerminalText text, double fontScale) {
+  Widget _buildTerminalText(TerminalText text) {
     if (text.spans != null) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 1),
@@ -131,9 +119,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
                         span.style?.color ??
                         text.color ??
                         context.colorScheme.primary,
-                    fontSize:
-                        (span.style?.fontSize ?? context.defaultBodyFontSize) *
-                        fontScale,
+                    fontSize: context.scaledBodyFontSize,
                   ),
                   recognizer: span.recognizer,
                 );
@@ -141,10 +127,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
               return span;
             }).toList(),
             style: context.textTheme.titleLarge?.copyWith(
-              fontSize:
-                  (context.textTheme.titleLarge?.fontSize ??
-                      context.defaultBodyFontSize) *
-                  fontScale,
+              fontSize: context.scaledBodyFontSize,
             ),
           ),
         ),
@@ -154,10 +137,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
       text.text ?? '',
       style: context.textTheme.titleLarge?.copyWith(
         color: text.color ?? context.colorScheme.primary,
-        fontSize:
-            (context.textTheme.titleLarge?.fontSize ??
-                context.defaultBodyFontSize) *
-            fontScale,
+        fontSize: context.scaledBodyFontSize,
       ),
     );
     if (text.url != null) {
@@ -173,7 +153,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
     );
   }
 
-  Widget _buildInput(double fontScale) {
+  Widget _buildInput() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -181,10 +161,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
           r'guest@terminal:~ $  ',
           style: context.textTheme.titleLarge?.copyWith(
             color: context.colorScheme.primary,
-            fontSize:
-                (context.textTheme.titleLarge?.fontSize ??
-                    context.defaultBodyFontSize) *
-                fontScale,
+            fontSize: context.scaledBodyFontSize,
           ),
         ),
         Expanded(
@@ -193,10 +170,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
             focusNode: _terminalStateManager.focusNode,
             style: context.textTheme.titleLarge?.copyWith(
               color: context.colorScheme.primary,
-              fontSize:
-                  (context.textTheme.titleLarge?.fontSize ??
-                      context.defaultBodyFontSize) *
-                  fontScale,
+              fontSize: context.scaledBodyFontSize,
             ),
             cursorWidth: 10,
             cursorHeight: 15,

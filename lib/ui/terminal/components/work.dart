@@ -119,7 +119,10 @@ class Work extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 1),
       child: Text(
         text,
-        style: context.textTheme.titleLarge?.copyWith(height: 1),
+        style: context.textTheme.titleLarge?.copyWith(
+          height: 1,
+          fontSize: context.scaledBodyFontSize,
+        ),
       ),
     );
   }
@@ -129,7 +132,10 @@ class Work extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 1),
       child: Text(
         text,
-        style: context.textTheme.titleLarge?.copyWith(height: 1),
+        style: context.textTheme.titleLarge?.copyWith(
+          height: 1,
+          fontSize: context.scaledBodyFontSize,
+        ),
       ),
     );
   }

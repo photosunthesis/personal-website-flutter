@@ -184,6 +184,7 @@ class _FastfetchState extends State<Fastfetch> {
           text: '$label: ',
           style: context.textTheme.titleLarge?.copyWith(
             color: AppColors.lightGray,
+            fontSize: context.scaledBodyFontSize,
             height: 1,
           ),
         ),
@@ -196,6 +197,7 @@ class _FastfetchState extends State<Fastfetch> {
           text: value,
           style: context.textTheme.titleLarge?.copyWith(
             color: color,
+            fontSize: context.scaledBodyFontSize,
             decoration: url != null ? TextDecoration.underline : null,
             decorationColor: url != null ? color : null,
             height: 1,
