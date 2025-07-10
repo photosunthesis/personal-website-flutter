@@ -1,6 +1,5 @@
 // TODO: Move this data to Firebase
 class WorkExperience {
-
   const WorkExperience({
     required this.company,
     required this.role,
@@ -26,7 +25,8 @@ class WorkExperience {
     final years = end.year - startDate.year;
     final months = end.month - startDate.month + (years * 12);
 
-    final String formattedStart = '${_getMonth(startDate.month)} ${startDate.year}';
+    final String formattedStart =
+        '${_getMonth(startDate.month)} ${startDate.year}';
     final String formattedEnd = isCurrent
         ? 'Present'
         : '${_getMonth(end.month)} ${end.year}';
@@ -116,7 +116,9 @@ class WorkHistory {
 
   static String get totalExperience {
     if (experiences.isEmpty) return '0';
-    final earliestDate = experiences.map((e) => e.startDate).reduce((a, b) => a.isBefore(b) ? a : b);
+    final earliestDate = experiences
+        .map((e) => e.startDate)
+        .reduce((a, b) => a.isBefore(b) ? a : b);
     final years = DateTime.now().year - earliestDate.year;
     return years.toString();
   }

@@ -1,7 +1,8 @@
 abstract class SunAsciiSequence {
   static const linesPerFrame = 31;
 
-  static const sequence = '''                                                            
+  static const sequence =
+      '''                                                            
                              ###                            
                              ####                           
                              ####                           
