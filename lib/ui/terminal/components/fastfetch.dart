@@ -163,7 +163,7 @@ class _FastfetchState extends State<Fastfetch> {
   ) {
     final label = info['label'] ?? '';
     final value = info['value'] ?? '';
-    final colorKey = info['colorKey'] ?? '';
+    final color = info['color'] ?? '';
     final url = info['url'];
 
     final colorMap = {
@@ -175,11 +175,10 @@ class _FastfetchState extends State<Fastfetch> {
       'divider': AppColors.gray,
     };
 
-    final color = colorMap[colorKey] ?? AppColors.white;
-    final spans = <InlineSpan>[];
+    final textColor = colorMap[color] ?? AppColors.white;
 
-    if (label.isNotEmpty) {
-      spans.add(
+    return [
+      if (label.isNotEmpty)
         TextSpan(
           text: '$label: ',
           style: context.textTheme.titleLarge?.copyWith(
@@ -188,18 +187,14 @@ class _FastfetchState extends State<Fastfetch> {
             height: 1,
           ),
         ),
-      );
-    }
-
-    if (value.isNotEmpty) {
-      spans.add(
+      if (value.isNotEmpty)
         TextSpan(
           text: value,
           style: context.textTheme.titleLarge?.copyWith(
-            color: color,
+            color: textColor,
             fontSize: context.scaledBodyFontSize,
             decoration: url != null ? TextDecoration.underline : null,
-            decorationColor: url != null ? color : null,
+            decorationColor: url != null ? textColor : null,
             height: 1,
           ),
           recognizer: url != null
@@ -207,10 +202,7 @@ class _FastfetchState extends State<Fastfetch> {
                   ..onTap = () => launchUrl(Uri.parse(url)))
               : null,
         ),
-      );
-    }
-
-    return spans;
+    ];
   }
 
   String get currentPlatform {
@@ -231,63 +223,59 @@ class _FastfetchState extends State<Fastfetch> {
 
   // TODO Move to a database or API
   List<Map<String, dynamic>> get fastfetchContent => [
-    {'label': 'OS', 'value': currentPlatform, 'colorKey': 'cyan'},
-    {'label': 'Alias', 'value': 'Sun', 'colorKey': 'cyan'},
-    {'label': 'Location', 'value': 'Manila, Philippines', 'colorKey': 'cyan'},
-    {'label': 'Work', 'value': 'Software Developer', 'colorKey': 'cyan'},
+    {'label': 'OS', 'value': currentPlatform, 'color': 'cyan'},
+    {'label': 'Alias', 'value': 'Sun', 'color': 'cyan'},
+    {'label': 'Location', 'value': 'Manila, Philippines', 'color': 'cyan'},
+    {'label': 'Work', 'value': 'Software Developer', 'color': 'cyan'},
     {
       'label': 'Domain',
       'value': 'sun-envidiado.com',
-      'colorKey': 'cyan',
+      'color': 'cyan',
       'url': 'https://sun-envidiado.com',
     },
-    {'label': 'Site with', 'value': 'Built with Flutter', 'colorKey': 'cyan'},
-    {'label': '', 'value': '', 'colorKey': ''},
+    {'label': 'Site', 'value': 'Built with Flutter', 'color': 'cyan'},
+    {'label': '', 'value': '', 'color': ''},
     {
       'label': 'Interests',
-      'value': 'Gaming, Karaoke, Running (away from problems)',
-      'colorKey': 'green',
+      'value': 'Gaming, Singing, Running (away from problems)',
+      'color': 'yellow',
     },
+    {'label': 'Currently Playing', 'value': 'Helldivers 2', 'color': 'yellow'},
+    {'label': '', 'value': '', 'color': ''},
     {
-      'label': 'Currently Playing',
-      'value': 'Helldivers 2',
-      'colorKey': 'green',
-    },
-    {'label': '', 'value': '', 'colorKey': ''},
-    {
-      'label': 'Philosophy',
-      'value': 'Keep learning, keep building.',
-      'colorKey': 'magenta',
+      'label': 'Fun Fact',
+      'value': 'I can eat a whole pizza by myself.',
+      'color': 'magenta',
     },
     {
       'label': 'Status',
       'value': 'Probably overthinking something',
-      'colorKey': 'magenta',
+      'color': 'magenta',
     },
-    {'label': '', 'value': '', 'colorKey': ''},
+    {'label': '', 'value': '', 'color': ''},
     {
       'label': 'Email',
       'value': 'sunadriann31@gmail.com',
-      'colorKey': 'yellow',
+      'color': 'green',
       'url': 'mailto:sunadriann31@gmail.com',
     },
     {
       'label': 'LinkedIn',
       'value': '/in/sunenvidiado',
-      'colorKey': 'yellow',
+      'color': 'green',
       'url': 'https://linkedin.com/in/sunenvidiado/',
     },
     {
       'label': 'GitHub',
       'value': '@photosunthesis',
-      'colorKey': 'yellow',
+      'color': 'green',
       'url': 'https://github.com/photosunthesis',
     },
-    {'label': '', 'value': '', 'colorKey': ''},
+    {'label': '', 'value': '', 'color': ''},
     {
       'label': '',
       'value': '© ${DateTime.now().year} Sun Envidiado. All rights reserved.',
-      'colorKey': 'divider',
+      'color': 'divider',
     },
   ];
 }
