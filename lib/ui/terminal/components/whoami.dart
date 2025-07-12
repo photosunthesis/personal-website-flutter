@@ -16,9 +16,6 @@ const _whoAmIAscii =
 class WhoAmI extends StatelessWidget {
   const WhoAmI({super.key});
 
-  int get _yearsOfExperience =>
-      DateTime.now().year - 2019; // I started coding in 2019
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,19 +26,15 @@ class WhoAmI extends StatelessWidget {
         // TODO Move text to database or API
         _buildColoredParagraph(
           context,
-          'I\'m {Sun} — yes, that\'s actually my name — a software developer who\'s been building apps and websites for $_yearsOfExperience+ years. What started as curiosity about how software works has grown into something I genuinely care about – creating software that actually serves a purpose.',
+          'My name is {Sun}, which, yes, is my actual name, and I currently live in {Manila, Philippines}. As a kid, I wanted to be an astronaut, then a doctor. The astronaut thing fell apart when I realized the sheer volume of math and physical conditioning required, and the doctor path ended the moment I discovered that blood makes me lightheaded. So here we are.',
         ),
         _buildColoredParagraph(
           context,
-          'My journey took me through {JavaScript}, {PHP}, and {C#} before I found my way to {Flutter}. Each platform taught me something different, but {Flutter} clicked because I could build for both mobile and web without compromising on quality or user experience.',
+          'I spend a good amount of my free time {gaming}—I\'ve been playing a lot of {Helldivers 2} recently—and I love to sing, so I\'m always up for a {karaoke} session. These are my favorite ways to unwind. I also write code. My day job as a software developer keeps me grounded in real-world business needs, while personal projects are my space for creative exploration. This website, for instance, is one of those explorations, built with {Flutter}.',
         ),
         _buildColoredParagraph(
           context,
-          'I code mostly for work but sometimes for fun too. My day job keeps me grounded in real business needs and constraints, while personal projects let me experiment and build things I actually want to use – like this website built with {Flutter}! Both teach me different lessons about what makes software truly useful.',
-        ),
-        _buildColoredParagraph(
-          context,
-          'My development method is what I call error-driven development. I write code, it breaks, I figure out why — repeat until stable. I\'ve tried to make peace with test-driven development, but the truth is I don\'t enjoy writing tests for code that doesn\'t exist yet. I prefer writing them when the shape of the solution is clear, and the code has already survived a few real-world bruises. I\'ve learned that clear, simple code that anyone can understand beats overengineered architectural slop every time. Good software doesn\'t need to impress other developers — it needs to work and be maintainable.',
+          'I built this website because I wanted a place on the internet that belongs to me. The terminal-based design is a nod to my fascination with the raw, text-based interfaces that feel powerful and, let\'s be honest, look pretty techy. This fascination really took off when I switched from {Windows} to {Linux} and discovered a whole new world of command-line efficiency. Here, I\'ll write about games that have consumed my thoughts, particularly stubborn coding problems, or just whatever seems worth thinking about out loud. This is my attempt at adding something thoughtful to the vast expanse of human knowledge, even if that something is just me figuring things out.',
         ),
       ],
     );
@@ -129,33 +122,21 @@ class WhoAmI extends StatelessWidget {
   }
 
   TextStyle _getColoredTextStyle(BuildContext context, String word) {
-    Color color = AppColors.white;
-
-    switch (word.toLowerCase()) {
-      case 'sun':
-        color = AppColors.orange;
-        break;
-      case 'flutter':
-        color = AppColors.cyan;
-        break;
-      case 'javascript':
-        color = AppColors.yellow;
-        break;
-      case 'php':
-        color = AppColors.magenta;
-        break;
-      case 'c#':
-        color = AppColors.green;
-        break;
-    }
+    final lowerCaseWord = word.toLowerCase();
+    final color = switch (lowerCaseWord) {
+      'sun' => AppColors.orange,
+      'flutter' || 'windows' => AppColors.cyan,
+      'manila, philippines' => AppColors.magenta,
+      'manila, philippines' || 'helldivers 2' => AppColors.yellow,
+      'linux' || 'gaming' || 'karaoke' => AppColors.green,
+      _ => AppColors.white,
+    };
 
     return context.textTheme.titleLarge!.copyWith(
       height: 1,
       color: color,
       fontSize: context.scaledBodyFontSize,
-      fontWeight: word.toLowerCase() == 'sun'
-          ? FontWeight.bold
-          : FontWeight.normal,
+      fontWeight: lowerCaseWord == 'sun' ? FontWeight.bold : FontWeight.normal,
     );
   }
 }
