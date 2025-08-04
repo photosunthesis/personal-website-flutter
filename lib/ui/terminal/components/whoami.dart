@@ -26,15 +26,15 @@ class WhoAmI extends StatelessWidget {
         // TODO Move text to database or API
         _buildColoredParagraph(
           context,
-          'My name is {Sun}, which, yes, is my actual name, and I currently live in {Manila, Philippines}. As a kid, I wanted to be an astronaut, then a doctor. The astronaut thing fell apart when I realized the sheer volume of math and physical conditioning required, and the doctor path ended the moment I discovered that blood makes me lightheaded. So here we are.',
+          'I\'m {Sun}, a software developer based in {Manila, Philippines}. I enjoy building things, and this website is one of them.',
         ),
         _buildColoredParagraph(
           context,
-          'I spend a good amount of my free time {gaming}—I\'ve been playing a lot of {Helldivers 2} recently—and I love to sing, so I\'m always up for a {karaoke} session. These are my favorite ways to unwind. I also write code. My day job as a software developer keeps me grounded in real-world business needs, while personal projects are my space for creative exploration. This website, for instance, is one of those explorations, built with {Flutter}.',
+          'When I\'m not coding, I\'m probably {gaming} (currently hooked on {Helldivers 2}) or singing my heart out at a {karaoke} place. I built this site with {Flutter} to have my own little corner of the internet.',
         ),
         _buildColoredParagraph(
           context,
-          'I built this website because I wanted a place on the internet that belongs to me. The terminal-based design is a nod to my fascination with the raw, text-based interfaces that feel powerful and, let\'s be honest, look pretty techy. This fascination really took off when I switched from {Windows} to {Linux} and discovered a whole new world of command-line efficiency. Here, I\'ll write about games that have consumed my thoughts, particularly stubborn coding problems, or just whatever seems worth thinking about out loud. This is my attempt at adding something thoughtful to the vast expanse of human knowledge, even if that something is just me figuring things out.',
+          'The terminal aesthetic is a throwback to my love for command-line interfaces, which started when I switched from {Windows} to {Linux}. This is where I\'ll share my thoughts on gaming, coding, and anything else that catches my interest.',
         ),
       ],
     );
