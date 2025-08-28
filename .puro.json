@@ -1,4 +1,4 @@
 {
-  "env": "v3_32_7",
+  "env": "stable",
   "previousFlutterSdk": ".fvm/versions/3.32.1"
 }
